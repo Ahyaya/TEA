@@ -1,0 +1,22 @@
+f(t) = p(1)+p(2)*exp(-0.5*((t-p(3))/p(4)).^2)
+
+High temperature condition (degree C):
+p = [25.95254033453956 4.618978096800499 342.9774772183373 209.4972313017774]
+
+Low temperature condition (degree C):
+p = [21.15216831788783 5.534166502103210 302.3003597020598 210.0537603240072]
+
+Solar Radiation (W/m2):
+p = [0.3232997214878014 674.5563642431475 263.3424216241497 160.8340374195125]
+
+
+
+## codes for Octave fitting tools:
+d=stationload('20190519.txt');
+f= @(p,x) p(1)+p(2)*exp(-0.5*((x-p(3))/p(4)).^2)
+t=(1:length(d))';
+plot(d(:,1));hold on;
+init=[26;5;375;250];
+format long
+[p,mv,cvg,outp]=nonlin_curvefit (f,init,t,d(:,1));p
+plot(t,p(1)+p(2)*exp(-0.5*((t-p(3))/p(4)).^2));
